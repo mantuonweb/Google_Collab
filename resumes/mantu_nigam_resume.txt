@@ -1,0 +1,16 @@
+MANTU NIGAM
+mantu.nigam@email.com | +91-9876543210 | Bangalore
+
+SKILLS
+Python, LangChain, OpenAI, RAG, FAISS, FastAPI, AWS, Docker
+
+EXPERIENCE
+Senior AI Engineer | TechCorp | 2021-Present
+- Built RAG applications with LangChain and OpenAI
+- Developed chatbots using FAISS vector database
+
+Software Engineer | DataMinds | 2019-2021
+- Created ML models and REST APIs with Python
+
+EDUCATION
+B.Tech CS | IIT Delhi | 2019

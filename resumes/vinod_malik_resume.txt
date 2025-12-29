@@ -1,0 +1,16 @@
+VINOD MALIK
+vinod.malik@email.com | +91-9988776655 | Mumbai
+
+SKILLS
+Python, Java, React, Node.js, TensorFlow, PostgreSQL, AWS, Kubernetes
+
+EXPERIENCE
+Full Stack Developer | WebSolutions | 2020-Present
+- Built web apps with React and Node.js
+- Deployed on AWS with PostgreSQL
+
+Junior Developer | StartupHub | 2019-2020
+- Created web interfaces and APIs
+
+EDUCATION
+B.E. IT | Mumbai University | 2019
