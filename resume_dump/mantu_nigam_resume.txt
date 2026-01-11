@@ -1,0 +1,16 @@
+MANTU NIGAM
+mantu.nigam@email.com | +91-9876543210 | Bangalore
+
+SKILLS
+Python, React, Angular, Nest, Html, CSS, Google Cloud, Docker
+
+EXPERIENCE
+Senior AI Engineer | TechCorp | 2021-Present
+- Built Full stack applications with Angular and Nest
+- Developed Mobile App Using Material UI
+
+Software Engineer | TCS | 2022-2025
+- Created ML models and REST APIs with Python
+
+EDUCATION
+MCA | IPU Delhi | 2011

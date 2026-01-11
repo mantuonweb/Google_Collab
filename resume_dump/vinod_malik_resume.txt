@@ -1,0 +1,18 @@
+VINOD MALIK
+vinod.malik@email.com | +91-9876543210 | Bangalore
+
+SKILLS
+Python, LangChain, VectorDB, Google Cloud, Docker, Machine Learning
+
+EXPERIENCE
+Senior AI Engineer | TechCorp | 2021-Present
+- Built Full stack Gen AI App using LangChain and Python
+- Developed Mobile App Using Material UI and React
+- Implemented ML models for recommendation systems
+
+Software Engineer | TCS | 2019-2021
+- Created ML models and REST APIs with Python
+- Worked on cloud infrastructure using Google Cloud
+
+EDUCATION
+MCA | IPU Delhi | 2011

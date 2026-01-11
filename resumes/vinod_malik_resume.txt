@@ -1,16 +1,18 @@
 VINOD MALIK
-vinod.malik@email.com | +91-9988776655 | Mumbai
+vinod.malik@email.com | +91-9876543210 | Bangalore
 
 SKILLS
-Python, Java, React, Node.js, TensorFlow, PostgreSQL, AWS, Kubernetes
+Python, LangChain, VectorDB, Google Cloud, Docker, Machine Learning
 
 EXPERIENCE
-Full Stack Developer | WebSolutions | 2020-Present
-- Built web apps with React and Node.js
-- Deployed on AWS with PostgreSQL
+Senior AI Engineer | TechCorp | 2021-Present
+- Built Full stack Gen AI App using LangChain and Python
+- Developed Mobile App Using Material UI and React
+- Implemented ML models for recommendation systems
 
-Junior Developer | StartupHub | 2019-2020
-- Created web interfaces and APIs
+Software Engineer | TCS | 2019-2021
+- Created ML models and REST APIs with Python
+- Worked on cloud infrastructure using Google Cloud
 
 EDUCATION
-B.E. IT | Mumbai University | 2019
+MCA | IPU Delhi | 2011

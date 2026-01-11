@@ -1,0 +1,14 @@
+SARAH JOHNSON
+sarah.j@email.com | +1-555-0123 | San Francisco
+
+SKILLS
+Angular, React, NestJS, TypeScript, Node.js, MongoDB
+
+EXPERIENCE
+Full Stack Developer | WebTech Inc | 2020-Present
+- Built microservices using NestJS and TypeScript
+- Developed responsive UIs with Angular and React
+- Designed RESTful APIs and GraphQL endpoints
+
+EDUCATION
+BS Computer Science | Stanford University | 2019

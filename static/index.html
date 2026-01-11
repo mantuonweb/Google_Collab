@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #666;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+            width: 100%;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .results {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        
+        .results h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .results pre {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .agent-steps {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .agent-steps h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .agent-steps ul {
+            margin-left: 20px;
+        }
+        
+        .agent-steps li {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 13px;
+        }
+        
+        /* Table Styles */
+        .candidates-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .candidates-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .candidates-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .candidates-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        .candidates-table tbody tr {
+            transition: background-color 0.3s;
+        }
+        
+        .candidates-table tbody tr:hover {
+            background-color: #f8f9ff;
+        }
+        
+        .candidates-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .rank-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .rank-1 {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+        }
+        
+        .rank-2 {
+            background: linear-gradient(135deg, #C0C0C0, #808080);
+        }
+        
+        .rank-3 {
+            background: linear-gradient(135deg, #CD7F32, #8B4513);
+        }
+        
+        .candidate-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+        
+        .skill-tag {
+            background: #e8eaf6;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .fit-reason {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .match-percentage {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .match-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .match-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+        
+        .match-high {
+            color: #28a745;
+        }
+        
+        .match-medium {
+            color: #ffc107;
+        }
+        
+        .match-low {
+            color: #dc3545;
+        }
+        
+        .resume-list {
+            list-style: none;
+        }
+        
+        .resume-item {
+            background: #f9f9f9;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .delete-btn {
+            background: #e74c3c;
+            padding: 5px 15px;
+            font-size: 12px;
+            width: auto;
+        }
+        
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .example-queries {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+        
+        .example-queries p {
+            margin-bottom: 5px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .example-queries ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        
+        .example-queries li {
+            margin-bottom: 3px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .example-queries li:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Resume Management System</h1>
+            <p>AI-Powered Resume Search & Management</p>
+            <span class="badge">AGENTIC MODE</span>
+        </div>
+        
+        <div class="grid">
+            <!-- Agent Query Card -->
+            <div class="card">
+                <h2>Ask the Agent</h2>
+                <div class="form-group">
+                    <label for="agentInput">Natural Language Query</label>
+                    <textarea id="agentInput" rows="3" placeholder="e.g., Find me candidates who know Python and React"></textarea>
+                </div>
+                <button onclick="askAgent()">Ask Agent</button>
+                <div id="agentStatus"></div>
+                
+                <div class="example-queries">
+                    <p>Try these examples:</p>
+                    <ul>
+                        <li onclick="setQuery('What resumes do I have?')">What resumes do I have?</li>
+                        <li onclick="setQuery('Find candidates who know Python and Machine Learning')">Find Python & ML candidates</li>
+                        <li onclick="setQuery('How many resumes are waiting to be processed?')">Count pending resumes</li>
+                        <li onclick="setQuery('Ingest all new resumes')">Ingest new resumes</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Upload Card -->
+            <div class="card">
+                <h2>Upload Resume</h2>
+                <div class="form-group">
+                    <label for="fileInput">Select Resume File (TXT or PDF)</label>
+                    <input type="file" id="fileInput" accept=".txt,.pdf">
+                </div>
+                <button onclick="uploadFile()">Upload</button>
+                <div id="uploadStatus"></div>
+            </div>
+            
+            <!-- Direct Search Card -->
+            <div class="card">
+                <h2>Direct Search</h2>
+                <div class="form-group">
+                    <label for="searchInput">Enter Skills (comma-separated)</label>
+                    <input type="text" id="searchInput" placeholder="e.g., Python, Machine Learning, Docker">
+                </div>
+                <button onclick="searchResumes()">Search</button>
+                <div id="searchStatus"></div>
+            </div>
+            
+            <!-- Actions Card -->
+            <div class="card">
+                <h2>Actions</h2>
+                <div class="form-group">
+                    <button onclick="ingestResumes()">Ingest All Resumes</button>
+                </div>
+                <div class="form-group">
+                    <button onclick="listResumes()">List All Resumes</button>
+                </div>
+                <div class="form-group">
+                    <button onclick="clearDatabase()" style="background: #e74c3c;">Clear Database</button>
+                </div>
+                <div id="actionStatus"></div>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="results" id="resultsSection" style="display: none;">
+            <h3 id="resultsTitle">Results</h3>
+            <div id="resultsContent"></div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'http://localhost:8000';
+        
+        function showStatus(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+        
+        function showResults(title, content) {
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('resultsContent').innerHTML = content;
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function hideResults() {
+            document.getElementById('resultsSection').style.display = 'none';
+        }
+        
+        function setQuery(query) {
+            document.getElementById('agentInput').value = query;
+            askAgent();
+        }
+        
+        function parseSearchResults(text) {
+            // Parse the AI response into structured data
+            const candidates = [];
+            const lines = text.split('\n');
+            let currentCandidate = null;
+            
+            for (let line of lines) {
+                line = line.trim();
+                
+                // Match candidate number and name
+                const nameMatch = line.match(/^\d+\.\s+\*\*(.+?)\*\*/);
+                if (nameMatch) {
+                    if (currentCandidate) {
+                        candidates.push(currentCandidate);
+                    }
+                    currentCandidate = {
+                        name: nameMatch[1],
+                        skills: [],
+                        reason: '',
+                        percentage: 0
+                    };
+                    continue;
+                }
+                
+                if (!currentCandidate) continue;
+                
+                // Match skills
+                const skillsMatch = line.match(/\*\*Relevant Skills:\*\*\s*(.+)/);
+                if (skillsMatch) {
+                    currentCandidate.skills = skillsMatch[1].split(',').map(s => s.trim());
+                    continue;
+                }
+                
+                // Match reason
+                const reasonMatch = line.match(/\*\*Why They Are a Good Fit:\*\*\s*(.+)/);
+                if (reasonMatch) {
+                    currentCandidate.reason = reasonMatch[1];
+                    continue;
+                }
+                
+                // Match percentage
+                const percentMatch = line.match(/\*\*Matching Percentage:\*\*\s*(\d+)%/);
+                if (percentMatch) {
+                    currentCandidate.percentage = parseInt(percentMatch[1]);
+                    continue;
+                }
+            }
+            
+            if (currentCandidate) {
+                candidates.push(currentCandidate);
+            }
+            
+            return candidates;
+        }
+        
+        function getMatchClass(percentage) {
+            if (percentage >= 85) return 'match-high';
+            if (percentage >= 70) return 'match-medium';
+            return 'match-low';
+        }
+        
+        function createCandidatesTable(candidates) {
+            if (candidates.length === 0) {
+                return '<p>No candidates found matching the criteria.</p>';
+            }
+            
+            let html = '<table class="candidates-table">';
+            html += '<thead><tr>';
+            html += '<th style="width: 60px;">Rank</th>';
+            html += '<th style="width: 200px;">Candidate</th>';
+            html += '<th>Skills</th>';
+            html += '<th>Why Good Fit</th>';
+            html += '<th style="width: 120px; text-align: center;">Match</th>';
+            html += '</tr></thead><tbody>';
+            
+            candidates.forEach((candidate, index) => {
+                const rank = index + 1;
+                const matchClass = getMatchClass(candidate.percentage);
+                
+                html += '<tr>';
+                
+                // Rank
+                html += `<td><span class="rank-badge rank-${rank}">${rank}</span></td>`;
+                
+                // Candidate Name
+                html += `<td><div class="candidate-name">${candidate.name}</div></td>`;
+                
+                // Skills
+                html += '<td><div class="skills-list">';
+                candidate.skills.forEach(skill => {
+                    html += `<span class="skill-tag">${skill}</span>`;
+                });
+                html += '</div></td>';
+                
+                // Reason
+                html += `<td><div class="fit-reason">${candidate.reason}</div></td>`;
+                
+                // Match Percentage
+                html += '<td>';
+                html += `<div class="match-percentage ${matchClass}">${candidate.percentage}%</div>`;
+                html += '<div class="match-bar">';
+                html += `<div class="match-bar-fill" style="width: ${candidate.percentage}%"></div>`;
+                html += '</div>';
+                html += '</td>';
+                
+                html += '</tr>';
+            });
+            
+            html += '</tbody></table>';
+            return html;
+        }
+        
+        async function askAgent() {
+            const query = document.getElementById('agentInput').value.trim();
+            
+            if (!query) {
+                showStatus('agentStatus', 'Please enter a query', 'error');
+                return;
+            }
+            
+            showStatus('agentStatus', 'Agent thinking... <span class="loading"></span>', 'info');
+            
+            try {
+                const response = await fetch(`${API_URL}/agent`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('agentStatus', 'Agent completed task', 'success');
+                    
+                    // Show agent steps if available
+                    let content = '';
+                    if (data.agent_steps && data.agent_steps.length > 0) {
+                        content += '<div class="agent-steps">';
+                        content += '<h4>Agent Actions:</h4><ul>';
+                        data.agent_steps.forEach(step => {
+                            content += `<li><strong>${step.tool}</strong>: ${step.output}</li>`;
+                        });
+                        content += '</ul></div>';
+                    }
+                    
+                    // Parse if it's a search result
+                    const candidates = parseSearchResults(data.response);
+                    if (candidates.length > 0) {
+                        content += createCandidatesTable(candidates);
+                    } else {
+                        content += `<pre>${data.response}</pre>`;
+                    }
+                    
+                    showResults('Agent Response', content);
+                } else {
+                    showStatus('agentStatus', `Error: ${data.detail}`, 'error');
+                }
+            } catch (error) {
+                showStatus('agentStatus', `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                showStatus('uploadStatus', 'Please select a file first', 'error');
+                return;
+            }
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            showStatus('uploadStatus', 'Uploading... <span class="loading"></span>', 'info');
+            
+            try {
+                const response = await fetch(`${API_URL}/upload`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('uploadStatus', data.message, 'success');
+                    fileInput.value = '';
+                } else {
+                    showStatus('uploadStatus', data.detail, 'error');
+                }
+            } catch (error) {
+                showStatus('uploadStatus', `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function searchResumes() {
+            const skills = document.getElementById('searchInput').value.trim();
+            
+            if (!skills) {
+                showStatus('searchStatus', 'Please enter skills to search', 'error');
+                return;
+            }
+            
+            showStatus('searchStatus', 'Searching... <span class="loading"></span>', 'info');
+            
+            try {
+                const response = await fetch(`${API_URL}/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ skills: skills })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('searchStatus', 'Search completed', 'success');
+                    
+                    // Parse and display as table
+                    const candidates = parseSearchResults(data.results);
+                    const tableHtml = createCandidatesTable(candidates);
+                    
+                    showResults('Top Candidates', tableHtml);
+                } else {
+                    showStatus('searchStatus', data.detail, 'error');
+                    hideResults();
+                }
+            } catch (error) {
+                showStatus('searchStatus', `Error: ${error.message}`, 'error');
+                hideResults();
+            }
+        }
+        
+        async function ingestResumes() {
+            showStatus('actionStatus', 'Ingesting resumes... <span class="loading"></span>', 'info');
+            
+            try {
+                const response = await fetch(`${API_URL}/agent`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: 'Ingest all new resumes' })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('actionStatus', data.response, 'success');
+                } else {
+                    showStatus('actionStatus', data.detail, 'error');
+                }
+            } catch (error) {
+                showStatus('actionStatus', `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function listResumes() {
+            showStatus('actionStatus', 'Loading resumes... <span class="loading"></span>', 'info');
+            
+            try {
+                const response = await fetch(`${API_URL}/agent`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: 'List all resumes in the database' })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('actionStatus', 'Resumes loaded', 'success');
+                    showResults('Resume List', `<pre>${data.response}</pre>`);
+                } else {
+                    showStatus('actionStatus', data.detail, 'error');
+                    hideResults();
+                }
+            } catch (error) {
+                showStatus('actionStatus', `Error: ${error.message}`, 'error');
+                hideResults();
+            }
+        }
+        
+        async function clearDatabase() {
+            if (!confirm('Are you sure you want to clear the entire database? This cannot be undone!')) {
+                return;
+            }
+            
+            showStatus('actionStatus', 'Clearing database... <span class="loading"></span>', 'info');
+            
+            try {
+                const response = await fetch(`${API_URL}/agent`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query: 'Clear all resumes from the database' })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showStatus('actionStatus', data.response, 'success');
+                    hideResults();
+                } else {
+                    showStatus('actionStatus', data.detail, 'error');
+                }
+            } catch (error) {
+                showStatus('actionStatus', `Error: ${error.message}`, 'error');
+            }
+        }
+        
+        // Allow Enter key to trigger search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchResumes();
+            }
+        });
+        
+        // Allow Ctrl+Enter to trigger agent query
+        document.getElementById('agentInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                askAgent();
+            }
+        });
+    </script>
+</body>
+</html>

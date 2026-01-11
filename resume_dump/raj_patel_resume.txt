@@ -1,0 +1,14 @@
+RAJ PATEL
+raj.patel@email.com | +91-9988776655 | Mumbai
+
+SKILLS
+Python, Django, FastAPI, PostgreSQL, Docker, Kubernetes
+
+EXPERIENCE
+Backend Developer | DataSoft | 2021-Present
+- Built scalable APIs using FastAPI and Python
+- Containerized applications with Docker and Kubernetes
+- Optimized database queries in PostgreSQL
+
+EDUCATION
+BTech Computer Engineering | IIT Bombay | 2020
